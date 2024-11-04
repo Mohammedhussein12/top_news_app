@@ -1,0 +1,16 @@
+{
+  "news_app": "تطبيق الأخبار",
+  "pick_your_category_of_interest": "اختر فئة اهتمامك",
+  "categories": "الفئات",
+  "settings": "الإعدادات",
+  "language": "اللغة",
+  "sports": "رياضة",
+  "politics": "السياسة",
+  "health": "الصحة",
+  "business": "عمل",
+  "enviroment": "بيئة",
+  "science": "علم",
+  "news_title": "عنوان الخبر",
+  "view_full_article": "عرض المقال كاملا",
+  "search_article" : "ابحث عن مقال"
+}
