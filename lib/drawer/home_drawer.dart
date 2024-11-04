@@ -4,7 +4,12 @@ import 'package:news_app/utils/app_theme.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HomeDrawer extends StatelessWidget {
-  const HomeDrawer({super.key});
+  const HomeDrawer({
+    super.key,
+    required this.onDrawerItemSelected,
+  });
+
+  final void Function(DrawerItem) onDrawerItemSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +37,10 @@ class HomeDrawer extends StatelessWidget {
               child: Column(
                 children: [
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      onDrawerItemSelected(DrawerItem.categories);
+                      Navigator.pop(context);
+                    },
                     child: Row(
                       children: [
                         const Icon(
@@ -52,7 +60,10 @@ class HomeDrawer extends StatelessWidget {
                     height: 8,
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      onDrawerItemSelected(DrawerItem.settings);
+                      Navigator.pop(context);
+                    },
                     child: Row(
                       children: [
                         const Icon(
@@ -77,3 +88,5 @@ class HomeDrawer extends StatelessWidget {
     );
   }
 }
+
+enum DrawerItem { settings, categories }

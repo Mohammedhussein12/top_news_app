@@ -42,6 +42,8 @@ class SettingsTab extends StatelessWidget {
               child: Consumer<LanguageProvider>(
                 builder: (context, languageProvider, child) {
                   return DropdownButton<Language>(
+                    iconEnabledColor: AppTheme.primaryColor,
+                    iconDisabledColor: AppTheme.primaryColor,
                     value: LanguageController.languages.firstWhere(
                       (language) {
                         return languageProvider.language == language.code;
