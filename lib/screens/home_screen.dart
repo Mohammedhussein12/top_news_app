@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:news_app/categories/categories_grid.dart';
-
+import 'package:news_app/drawer/home_drawer.dart';
+import 'package:news_app/settings/settings_tab.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../utils/app_theme.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -22,9 +24,10 @@ class HomeScreen extends StatelessWidget {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('News App'),
+          title: Text(AppLocalizations.of(context)!.news_app),
         ),
         body: const CategoriesGrid(),
+        drawer: const HomeDrawer(),
       ),
     );
   }
