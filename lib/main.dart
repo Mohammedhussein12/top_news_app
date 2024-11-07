@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/screens/home_screen.dart';
 import 'package:news_app/settings/language_provider.dart';
 import 'package:news_app/utils/app_theme.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import 'cache/cache_helper.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await CacheData.cacheInitialization();
   runApp(
     ChangeNotifierProvider(
       create: (context) => LanguageProvider(),
