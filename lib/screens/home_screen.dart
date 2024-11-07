@@ -35,7 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(AppLocalizations.of(context)!.news_app),
+          title: Text(selectedCategory != null
+              ? selectedCategory!.name
+              : selectedDrawerItem == DrawerItem.settings
+                  ? AppLocalizations.of(context)!.settings
+                  : AppLocalizations.of(context)!.news_app),
         ),
         body: selectedCategory != null
             ? CategoryDetails(categoryId: selectedCategory!.id)

@@ -20,7 +20,10 @@ class CategoriesGrid extends StatelessWidget {
     List<CategoryModel> categories = List.generate(
       6,
       (index) => CategoryModel(
-          id: '$index', name: 'Sports', color: AppTheme.red, imageName: 'ball'),
+          id: '$index',
+          name: AppLocalizations.of(context)!.sports,
+          color: AppTheme.red,
+          imageName: 'ball'),
     );
     return Scaffold(
       body: Padding(
