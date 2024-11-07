@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/categories/categories_grid.dart';
 import 'package:news_app/drawer/home_drawer.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:news_app/models/category_model.dart';
 import 'package:news_app/settings/settings_tab.dart';
+
+import '../categories/category_details.dart';
 import '../utils/app_theme.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -16,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   DrawerItem selectedDrawerItem = DrawerItem.categories;
+  CategoryModel? selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +37,13 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text(AppLocalizations.of(context)!.news_app),
         ),
-        body: selectedDrawerItem == DrawerItem.settings
-            ? const SettingsTab()
-            : const CategoriesGrid(),
+        body: selectedCategory != null
+            ? CategoryDetails(categoryId: selectedCategory!.id)
+            : selectedDrawerItem == DrawerItem.settings
+                ? const SettingsTab()
+                : CategoriesGrid(
+                    onCategorySelected: onCategorySelected,
+                  ),
         drawer: HomeDrawer(
           onDrawerItemSelected: onDrawerItemSelected,
         ),
@@ -43,9 +51,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  onDrawerItemSelected(DrawerItem drawerItem) {
+  void onDrawerItemSelected(DrawerItem drawerItem) {
+    selectedCategory = null;
     setState(() {
       selectedDrawerItem = drawerItem;
     });
+  }
+
+  void onCategorySelected(CategoryModel category) {
+    selectedCategory = category;
+    setState(() {});
   }
 }

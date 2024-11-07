@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/categories/category_item.dart';
 import 'package:news_app/models/category_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../utils/app_theme.dart';
 
 class CategoriesGrid extends StatelessWidget {
-  const CategoriesGrid({super.key});
+  const CategoriesGrid({
+    super.key,
+    required this.onCategorySelected,
+  });
+
+  final void Function(CategoryModel category) onCategorySelected;
 
   @override
   Widget build(BuildContext context) {
@@ -36,10 +42,18 @@ class CategoriesGrid extends StatelessWidget {
                     crossAxisSpacing: screenWidth * 0.07,
                     mainAxisSpacing: screenHeight * 0.034,
                     crossAxisCount: 2),
-                itemBuilder: (_, index) => CategoryItem(
-                  category: categories[index],
-                  index: index,
-                ),
+                itemBuilder: (_, index) {
+                  CategoryModel category = categories[index];
+                  return GestureDetector(
+                    onTap: () {
+                      onCategorySelected(category);
+                    },
+                    child: CategoryItem(
+                      category: category,
+                      index: index,
+                    ),
+                  );
+                },
               ),
             ),
           ],
