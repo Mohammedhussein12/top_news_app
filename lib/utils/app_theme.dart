@@ -13,6 +13,7 @@ class AppTheme {
   static const Color brown = Color(0xffCF7E48);
   static const Color yellow = Color(0xffF2D352);
   static const Color darkTeal = Color(0xff42505C);
+  static const Color grey = Color(0xff79828B);
   static final ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(
       titleTextStyle: GoogleFonts.exo(
@@ -31,10 +32,7 @@ class AppTheme {
         fontWeight: FontWeight.bold,
       ),
       titleMedium: GoogleFonts.exo(
-        fontWeight: FontWeight.w400,
-        fontSize: 22,
-        color: white
-      ),
+          fontWeight: FontWeight.w400, fontSize: 22, color: white),
       headlineSmall: GoogleFonts.poppins(
         color: black,
         fontSize: 24,
