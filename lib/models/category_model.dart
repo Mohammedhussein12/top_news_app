@@ -1,12 +1,12 @@
 import 'dart:ui';
 
 class CategoryModel {
-  String id;
-  String name;
-  Color color;
-  String imageName;
+  final String id;
+  final String name;
+  final Color color;
+  final String imageName;
 
-  CategoryModel({
+  const CategoryModel({
     required this.id,
     required this.name,
     required this.color,
