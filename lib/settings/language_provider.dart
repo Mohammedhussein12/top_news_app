@@ -1,10 +1,32 @@
 import 'package:flutter/cupertino.dart';
+import 'package:news_app/cache/cache_helper.dart';
 
-class LanguageProvider extends ChangeNotifier{
+class LanguageProvider extends ChangeNotifier {
   String language = 'en';
+
+  LanguageProvider() {
+    getLanguage();
+  }
 
   void changeLanguage(String newLanguage) {
     language = newLanguage;
+    setLanguage(language);
+    notifyListeners();
+  }
+
+  void setLanguage(String newLanguage) {
+    if (newLanguage == 'en') {
+      CacheData.setData(key: 'language', value: 'en');
+    } else if (newLanguage == 'ar') {
+      CacheData.setData(key: 'language', value: 'ar');
+    }
+  }
+
+  void getLanguage() {
+    String? selectedLanguage = CacheData.getData(key: 'language') ?? 'en';
+    if (selectedLanguage != null) {
+      language = selectedLanguage;
+    }
     notifyListeners();
   }
 }
