@@ -12,5 +12,7 @@
   "science": "Science",
   "news_title": "News Title",
   "view_full_article": "View Full Article",
-  "search_article" : "Search Article"
+  "search_article": "Search Article",
+  "english": "English",
+  "arabic": "Arabic"
 }

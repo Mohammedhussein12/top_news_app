@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/settings/language.dart';
-import 'package:news_app/settings/language_controller.dart';
 import 'package:news_app/settings/language_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import '../utils/app_theme.dart';
 
 class SettingsTab extends StatelessWidget {
@@ -14,6 +14,10 @@ class SettingsTab extends StatelessWidget {
     final headlineSmallTextTheme = Theme.of(context).textTheme.headlineSmall;
     final screenHeight = MediaQuery.sizeOf(context).height;
     final screenWidth = MediaQuery.of(context).size.width;
+    List<Language> languages = [
+      Language(name: AppLocalizations.of(context)!.english, code: 'en'),
+      Language(name: AppLocalizations.of(context)!.arabic, code: 'ar'),
+    ];
 
     return Padding(
       padding: const EdgeInsetsDirectional.all(16.0),
@@ -44,12 +48,12 @@ class SettingsTab extends StatelessWidget {
                   return DropdownButton<Language>(
                     iconEnabledColor: AppTheme.primaryColor,
                     iconDisabledColor: AppTheme.primaryColor,
-                    value: LanguageController.languages.firstWhere(
+                    value: languages.firstWhere(
                       (language) {
                         return languageProvider.language == language.code;
                       },
                     ),
-                    items: LanguageController.languages.map((language) {
+                    items: languages.map((language) {
                       return DropdownMenuItem(
                         value: language,
                         child: Text(

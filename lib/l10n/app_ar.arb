@@ -12,5 +12,7 @@
   "science": "علم",
   "news_title": "عنوان الخبر",
   "view_full_article": "عرض المقال كاملا",
-  "search_article" : "ابحث عن مقال"
+  "search_article": "ابحث عن مقال",
+  "english": "الانجليزيه",
+  "arabic": "العربيه"
 }
