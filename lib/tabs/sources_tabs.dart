@@ -23,6 +23,7 @@ class _SourcesTabsState extends State<SourcesTabs> {
         DefaultTabController(
           length: widget.sources.length,
           child: TabBar(
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
             tabAlignment: TabAlignment.start,
             indicatorColor: Colors.transparent,
             dividerColor: Colors.transparent,
@@ -34,11 +35,11 @@ class _SourcesTabsState extends State<SourcesTabs> {
             tabs: widget.sources
                 .map(
                   (source) => TabItem(
-                    sourceName: source.name,
-                    isSourceSelected:
-                        selectedTabIndex == widget.sources.indexOf(source),
-                  ),
-                )
+                sourceName: source.name,
+                isSourceSelected:
+                selectedTabIndex == widget.sources.indexOf(source),
+              ),
+            )
                 .toList(),
           ),
         ),
