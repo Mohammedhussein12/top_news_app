@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:news_app/news/news_item_details.dart';
 import 'package:news_app/screens/home_screen.dart';
 import 'package:news_app/settings/language_provider.dart';
 import 'package:news_app/utils/app_theme.dart';
@@ -33,6 +34,7 @@ class NewsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       routes: {
         HomeScreen.routeName: (context) => const HomeScreen(),
+        NewsItemDetails.routeName: (context) => const NewsItemDetails(),
       },
       initialRoute: HomeScreen.routeName,
     );
