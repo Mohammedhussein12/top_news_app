@@ -4,17 +4,12 @@ import 'package:news_app/utils/app_theme.dart';
 import 'package:news_app/widgets/loading_indicator.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
-class NewsItem extends StatefulWidget {
-  const NewsItem({super.key});
+import '../models/news_response.dart';
 
-  @override
-  State<NewsItem> createState() => _NewsItemState();
-}
+class NewsItem extends StatelessWidget {
+  const NewsItem({super.key, required this.news});
 
-class _NewsItemState extends State<NewsItem> {
-  final timeAgo = DateTime.now().subtract(
-    const Duration(minutes: 15),
-  );
+  final News news;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +22,7 @@ class _NewsItemState extends State<NewsItem> {
           ClipRRect(
               borderRadius: BorderRadius.circular(5),
               child: CachedNetworkImage(
-                imageUrl:
+                imageUrl: news.urlToImage ??
                     'https://www.iisertvm.ac.in/assets/images/placeholder.jpg',
                 placeholder: (_, __) => const LoadingIndicator(),
                 errorWidget: (_, __, ___) =>
@@ -42,10 +37,10 @@ class _NewsItemState extends State<NewsItem> {
           Align(
             alignment: AlignmentDirectional.centerStart,
             child: Text(
-              'BBC News',
+              news.source?.name ?? '',
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   fontWeight: FontWeight.w400,
-                  fontSize: 10,
+                  fontSize: 13,
                   color: AppTheme.grey),
             ),
           ),
@@ -53,11 +48,11 @@ class _NewsItemState extends State<NewsItem> {
             height: 4,
           ),
           Text(
-            "Why are football's biggest clubs starting a new tournament?",
+            news.description ?? '',
             style: Theme.of(context)
                 .textTheme
                 .titleSmall
-                ?.copyWith(fontSize: 14, fontWeight: FontWeight.w400),
+                ?.copyWith(fontSize: 12, fontWeight: FontWeight.w400),
           ),
           const SizedBox(
             height: 4,
@@ -66,7 +61,7 @@ class _NewsItemState extends State<NewsItem> {
             alignment: AlignmentDirectional.centerEnd,
             child: Text(
               textAlign: TextAlign.end,
-              timeago.format(timeAgo),
+              timeago.format(news.publishedAt!),
               style: Theme.of(context).textTheme.titleSmall?.copyWith(
                   fontSize: 13,
                   fontWeight: FontWeight.w400,

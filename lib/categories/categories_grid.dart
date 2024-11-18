@@ -17,14 +17,40 @@ class CategoriesGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.sizeOf(context).height;
     final screenWidth = MediaQuery.sizeOf(context).width;
-    List<CategoryModel> categories = List.generate(
-      6,
-      (index) => CategoryModel(
-          id: '$index',
-          name: AppLocalizations.of(context)!.sports,
-          color: AppTheme.red,
-          imageName: 'ball'),
-    );
+    List<CategoryModel> categories = [
+      CategoryModel(
+        name: AppLocalizations.of(context)!.sports,
+        imageName: 'sports',
+        id: 'sports',
+        color: AppTheme.red,
+      ),
+      CategoryModel(
+        name: AppLocalizations.of(context)!.technology,
+        imageName: 'technology',
+        id: 'technology',
+        color: AppTheme.darkBlue,
+      ),
+      CategoryModel(
+          name: AppLocalizations.of(context)!.health,
+          imageName: 'health',
+          color: AppTheme.pink,
+          id: 'health'),
+      CategoryModel(
+          name: AppLocalizations.of(context)!.business,
+          imageName: 'business',
+          color: AppTheme.brown,
+          id: 'business'),
+      CategoryModel(
+          name: AppLocalizations.of(context)!.general,
+          imageName: 'general',
+          color: AppTheme.lightBlue,
+          id: 'general'),
+      CategoryModel(
+          name: AppLocalizations.of(context)!.science,
+          imageName: 'science',
+          color: AppTheme.yellow,
+          id: 'science'),
+    ];
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),

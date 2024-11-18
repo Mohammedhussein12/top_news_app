@@ -1,25 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/api/api_service.dart';
 import 'package:news_app/tabs/sources_tabs.dart';
 
-import '../models/source.dart';
+import '../widgets/error_indicator.dart';
+import '../widgets/loading_indicator.dart';
 
-class CategoryDetails extends StatefulWidget {
+class CategoryDetails extends StatelessWidget {
   const CategoryDetails({super.key, required this.categoryId});
 
   final String categoryId;
 
   @override
-  State<CategoryDetails> createState() => _CategoryDetailsState();
-}
-
-class _CategoryDetailsState extends State<CategoryDetails> {
-  List<Source> sources =
-      List.generate(10, (index) => Source(id: '$index', name: 'source $index'));
-
-  @override
   Widget build(BuildContext context) {
-    return SourcesTabs(
-      sources: sources,
+    return FutureBuilder(
+      future: ApiService.getSourcesByCategoryId(categoryId: categoryId),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const LoadingIndicator();
+        } else if (snapshot.hasError || snapshot.data?.status != 'ok') {
+          return const ErrorIndicator();
+        } else {
+          final sources = snapshot.data?.sources ?? [];
+          return SourcesTabs(sources: sources);
+        }
+      },
     );
   }
 }
