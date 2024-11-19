@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../api/api_service.dart';
 import '../news/news_item.dart';
@@ -60,8 +61,9 @@ class SearchTab extends SearchDelegate {
     if (query.isEmpty) {
       return Container(
         color: Colors.white,
-        child: const Center(
-          child: Text('Please enter text To Search'),
+        child: Center(
+          child:
+              Text(AppLocalizations.of(context)!.please_enter_text_to_search),
         ),
       );
     }
