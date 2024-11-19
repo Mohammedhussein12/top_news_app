@@ -35,19 +35,13 @@ class NewsItemDetails extends StatelessWidget {
                 height: screenHeight * 0.02,
               ),
               NewsItem(news: news),
-              SizedBox(
-                height: screenHeight * 0.02,
-              ),
               Padding(
                 padding: const EdgeInsetsDirectional.symmetric(
                     vertical: 8.0, horizontal: 24),
                 child: Text(
-                  news.description ?? '',
+                  news.content ?? '',
                   style: titleSmallTextTheme?.copyWith(fontSize: 12),
                 ),
-              ),
-              SizedBox(
-                height: screenHeight * 0.01,
               ),
               Align(
                 alignment: AlignmentDirectional.centerEnd,
