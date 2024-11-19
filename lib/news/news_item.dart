@@ -55,9 +55,16 @@ class NewsItem extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .titleSmall
-                ?.copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+                ?.copyWith(fontSize: 12, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 4),
+          Text(
+            news.description ?? '',
+            style: Theme.of(context)
+                .textTheme
+                .titleSmall
+                ?.copyWith(fontSize: 12, fontWeight: FontWeight.w400),
+          ),
           Align(
             alignment: AlignmentDirectional.centerEnd,
             child: Text(

@@ -3,6 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/categories/categories_grid.dart';
 import 'package:news_app/drawer/home_drawer.dart';
 import 'package:news_app/models/category_model.dart';
+import 'package:news_app/screens/search_tab.dart';
 import 'package:news_app/settings/settings_tab.dart';
 
 import '../categories/category_details.dart';
@@ -35,6 +36,20 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       child: Scaffold(
         appBar: AppBar(
+          actions: [
+            IconButton(
+              icon: const Icon(
+                Icons.search,
+                size: 30,
+              ),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchTab(),
+                );
+              },
+            ),
+          ],
           title: Text(selectedCategory != null
               ? selectedCategory!.name
               : selectedDrawerItem == DrawerItem.settings

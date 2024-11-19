@@ -27,50 +27,52 @@ class NewsItemDetails extends StatelessWidget {
         appBar: AppBar(
           title: const Text('News Title'),
         ),
-        body: Column(
-          children: [
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            NewsItem(news: news),
-            SizedBox(
-              height: screenHeight * 0.02,
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.symmetric(
-                  vertical: 8.0, horizontal: 24),
-              child: Text(
-                news.description ?? '',
-                style: titleSmallTextTheme?.copyWith(fontSize: 12),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: screenHeight * 0.02,
               ),
-            ),
-            SizedBox(
-              height: screenHeight * 0.01,
-            ),
-            Align(
-              alignment: AlignmentDirectional.centerEnd,
-              child: Padding(
+              NewsItem(news: news),
+              SizedBox(
+                height: screenHeight * 0.02,
+              ),
+              Padding(
                 padding: const EdgeInsetsDirectional.symmetric(
-                    vertical: 8.0, horizontal: 15),
-                child: TextButton(
-                  style: const ButtonStyle(
-                    overlayColor: WidgetStatePropertyAll(Colors.transparent),
-                  ),
-                  onPressed: () {
-                    UrlLauncher.launchArticleUrl(articleUrl: news.url ?? '');
-                  },
-                  child: Text(
-                    'View Full Article >>',
-                    style: titleSmallTextTheme?.copyWith(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 13,
-                      color: AppTheme.grey,
+                    vertical: 8.0, horizontal: 24),
+                child: Text(
+                  news.description ?? '',
+                  style: titleSmallTextTheme?.copyWith(fontSize: 12),
+                ),
+              ),
+              SizedBox(
+                height: screenHeight * 0.01,
+              ),
+              Align(
+                alignment: AlignmentDirectional.centerEnd,
+                child: Padding(
+                  padding: const EdgeInsetsDirectional.symmetric(
+                      vertical: 8.0, horizontal: 15),
+                  child: TextButton(
+                    style: const ButtonStyle(
+                      overlayColor: WidgetStatePropertyAll(Colors.transparent),
+                    ),
+                    onPressed: () {
+                      UrlLauncher.launchArticleUrl(articleUrl: news.url ?? '');
+                    },
+                    child: Text(
+                      'View Full Article >>',
+                      style: titleSmallTextTheme?.copyWith(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 13,
+                        color: AppTheme.grey,
+                      ),
                     ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

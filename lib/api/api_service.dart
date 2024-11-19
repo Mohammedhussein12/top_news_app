@@ -24,16 +24,19 @@ class ApiService {
     }
   }
 
-  static Future<NewsResponse> getNewsBySourceId(
-      {required String sourceId,
-      required int pageSize,
-      required int page}) async {
+  static Future<NewsResponse> getNewsBySourceId({
+    String? query,
+    String? sourceId,
+    int? pageSize,
+    int? page,
+  }) async {
     try {
       final uri = Uri.https(ApiConstants.baseUrl, ApiConstants.newsEndPoint, {
         'apiKey': ApiConstants.apiKey,
         'sources': sourceId,
         'page': page.toString(),
-        'pageSize': pageSize.toString(), // Adjust this value as needed
+        'pageSize': pageSize.toString(),
+        'q': query, // Adjust this value as needed
       });
       final response = await http.get(uri);
       final responseBody = response.body;
