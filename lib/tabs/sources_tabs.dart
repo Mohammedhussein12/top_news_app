@@ -44,7 +44,9 @@ class _SourcesTabsState extends State<SourcesTabs> {
           ),
         ),
         Expanded(
-          child: NewsList(sourceId: widget.sources[selectedTabIndex].id!),
+          child: NewsList(
+              key: ValueKey(widget.sources[selectedTabIndex].id),
+              sourceId: widget.sources[selectedTabIndex].id!),
         ),
       ],
     );
