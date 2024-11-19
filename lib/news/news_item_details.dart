@@ -40,7 +40,7 @@ class NewsItemDetails extends StatelessWidget {
               padding: const EdgeInsetsDirectional.symmetric(
                   vertical: 8.0, horizontal: 24),
               child: Text(
-                news.content ?? '',
+                news.description ?? '',
                 style: titleSmallTextTheme?.copyWith(fontSize: 12),
               ),
             ),

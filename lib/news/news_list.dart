@@ -1,40 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:news_app/api/api_service.dart';
-import 'package:news_app/news/news_item.dart';
-import 'package:news_app/news/news_item_details.dart';
-import 'package:news_app/widgets/error_indicator.dart';
-import 'package:news_app/widgets/loading_indicator.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
+import 'package:provider/provider.dart';
+
+import '../models/news_response.dart';
+import '../widgets/loading_indicator.dart';
+import 'news_item.dart';
+import 'news_item_details.dart';
+import 'news_list_provider.dart';
 
 class NewsList extends StatelessWidget {
-  const NewsList({super.key, required this.sourceId});
-
   final String sourceId;
+
+  const NewsList({super.key, required this.sourceId});
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: ApiService.getNewsBySourceId(sourceId: sourceId),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const LoadingIndicator();
-        } else if (snapshot.hasError || snapshot.data?.status != 'ok') {
-          return const ErrorIndicator();
-        } else {
-          final newsList = snapshot.data?.news ?? [];
-          return ListView.builder(
-            itemCount: newsList.length,
-            itemBuilder: (context, index) => GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, NewsItemDetails.routeName,
-                    arguments: newsList[index]);
-              },
-              child: NewsItem(
-                news: newsList[index],
+    return ChangeNotifierProvider(
+      create: (context) => NewsProvider(sourceId),
+      child: Consumer<NewsProvider>(
+        builder: (context, newsProvider, _) {
+          return PagedListView<int, News>(
+            pagingController: newsProvider.pagingController,
+            builderDelegate: PagedChildBuilderDelegate<News>(
+              itemBuilder: (context, news, index) => GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, NewsItemDetails.routeName,
+                      arguments: news);
+                },
+                child: NewsItem(news: news),
               ),
+              noItemsFoundIndicatorBuilder: (context) => const Center(
+                child: Text('No news found'),
+              ),
+              firstPageProgressIndicatorBuilder: (context) =>
+                  const LoadingIndicator(),
+              newPageProgressIndicatorBuilder: (context) =>
+                  const LoadingIndicator(),
+              noMoreItemsIndicatorBuilder: (context) => const Center(
+                child: Text('No more news'),
+              ),
+              transitionDuration: const Duration(seconds: 2),
+              animateTransitions: true,
             ),
           );
-        }
-      },
+        },
+      ),
     );
   }
 }
