@@ -11,8 +11,9 @@
   "general": "عام",
   "science": "علم",
   "news_title": "عنوان الخبر",
-  "view_full_article": "عرض المقال كاملا",
   "search_article": "ابحث عن مقال",
   "english": "الانجليزيه",
-  "arabic": "العربيه"
+  "arabic": "العربيه",
+  "view_full_article": "عرض المقال كاملا >>",
+  "please_enter_text_to_search": "الرجاء ادخال النص للبحث"
 }

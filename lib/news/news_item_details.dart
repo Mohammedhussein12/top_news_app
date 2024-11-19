@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/models/news_response.dart';
 import 'package:news_app/news/article_url_launcher.dart';
 import 'package:news_app/news/news_item.dart';
@@ -61,7 +62,7 @@ class NewsItemDetails extends StatelessWidget {
                       UrlLauncher.launchArticleUrl(articleUrl: news.url ?? '');
                     },
                     child: Text(
-                      'View Full Article >>',
+                      AppLocalizations.of(context)!.view_full_article,
                       style: titleSmallTextTheme?.copyWith(
                         fontWeight: FontWeight.w400,
                         fontSize: 13,

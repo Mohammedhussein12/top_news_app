@@ -11,8 +11,9 @@
   "general": "General",
   "science": "Science",
   "news_title": "News Title",
-  "view_full_article": "View Full Article",
   "search_article": "Search Article",
   "english": "English",
-  "arabic": "Arabic"
+  "arabic": "Arabic",
+  "view_full_article": "View Full Article >>",
+  "please_enter_text_to_search": "Please enter text To Search"
 }
