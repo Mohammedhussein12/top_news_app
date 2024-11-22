@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/news/view/widgets/news_item.dart';
-import 'package:news_app/news_details/view/view_model/news_details_view_model.dart';
 import 'package:news_app/search/data/models/news_response.dart';
 import 'package:provider/provider.dart';
 
 import '../../../shared/app_theme.dart';
+import '../../view_model/news_details_view_model.dart';
 
 class NewsItemDetails extends StatelessWidget {
   static const String routeName = '/newsItemDetails';
@@ -83,3 +83,4 @@ class NewsItemDetails extends StatelessWidget {
     );
   }
 }
+
