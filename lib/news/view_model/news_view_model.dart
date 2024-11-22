@@ -35,8 +35,6 @@ class NewsViewModel with ChangeNotifier {
     } catch (error) {
       pagingController.error = error;
     }
-
-    notifyListeners();
   }
 
   @override
