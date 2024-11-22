@@ -10,6 +10,8 @@ import '../../../shared/widgets/loading_indicator.dart';
 import '../../view_model/search_view_model.dart';
 
 class SearchTab extends SearchDelegate {
+  final searchViewModel = SearchViewModel();
+
   @override
   ThemeData appBarTheme(BuildContext context) {
     return ThemeData(
@@ -37,9 +39,9 @@ class SearchTab extends SearchDelegate {
 
   @override
   TextStyle? get searchFieldStyle => const TextStyle(
-        color: AppTheme.white,
-        fontSize: 22,
-      );
+    color: AppTheme.white,
+    fontSize: 22,
+  );
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -47,6 +49,7 @@ class SearchTab extends SearchDelegate {
       IconButton(
         onPressed: () {
           query = '';
+          searchViewModel.clearSearchResults();
         },
         icon: const Icon(
           Icons.clear,
@@ -98,7 +101,7 @@ class SearchTab extends SearchDelegate {
         ),
         child: Center(
           child:
-              Text(AppLocalizations.of(context)!.please_enter_text_to_search),
+          Text(AppLocalizations.of(context)!.please_enter_text_to_search),
         ),
       );
     }
@@ -116,46 +119,37 @@ class SearchTab extends SearchDelegate {
   }
 
   Widget buildSearchData() {
-    return ChangeNotifierProvider(
-      create: (context) => SearchViewModel()..searchByQuery(query: query),
-      child: Container(
-        width: double.infinity,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.fill,
-            image: AssetImage('assets/images/home.png'),
-          ),
-        ),
-        child: Consumer<SearchViewModel>(
-          builder: (context, searchViewModel, child) {
-            if (searchViewModel.isLoading) {
-              return const LoadingIndicator();
-            } else if (searchViewModel.errorMessage != null &&
-                searchViewModel.errorMessage!.isNotEmpty) {
-              return ErrorIndicator(searchViewModel.errorMessage!);
-            } else if (searchViewModel.news.isEmpty) {
-              return const Center(
-                child: Text('No news found'),
-              );
-            } else {
-              return ListView.builder(
-                itemCount: searchViewModel.news.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      NewsItemDetails.routeName,
-                      arguments: searchViewModel.news[index],
-                    );
-                  },
-                  child: NewsItem(
-                    news: searchViewModel.news[index],
-                  ),
+    return ChangeNotifierProvider.value(
+      value: searchViewModel..searchByQuery(query: query),
+      child: Consumer<SearchViewModel>(
+        builder: (context, searchViewModel, child) {
+          if (searchViewModel.isLoading) {
+            return const LoadingIndicator();
+          } else if (searchViewModel.errorMessage != null &&
+              searchViewModel.errorMessage!.isNotEmpty) {
+            return ErrorIndicator(searchViewModel.errorMessage!);
+          } else if (searchViewModel.news.isEmpty) {
+            return const Center(
+              child: Text('No news found'),
+            );
+          } else {
+            return ListView.builder(
+              itemCount: searchViewModel.news.length,
+              itemBuilder: (context, index) => GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    NewsItemDetails.routeName,
+                    arguments: searchViewModel.news[index],
+                  );
+                },
+                child: NewsItem(
+                  news: searchViewModel.news[index],
                 ),
-              );
-            }
-          },
-        ),
+              ),
+            );
+          }
+        },
       ),
     );
   }

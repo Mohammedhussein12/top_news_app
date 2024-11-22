@@ -25,4 +25,11 @@ class SearchViewModel with ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  void clearSearchResults() async {
+    news = [];
+    errorMessage = '';
+    isLoading = false;
+    notifyListeners();
+  }
 }
