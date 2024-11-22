@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:news_app/news/news_item_details.dart';
-import 'package:news_app/screens/home_screen.dart';
-import 'package:news_app/settings/language_provider.dart';
-import 'package:news_app/utils/app_theme.dart';
+import 'package:news_app/news_details/view/screens/news_item_details_screen.dart';
+import 'package:news_app/settings/view_model/settings_view_model.dart';
+import 'package:news_app/shared/app_theme.dart';
+import 'package:news_app/shared/cache/cache_helper.dart';
 import 'package:provider/provider.dart';
 
-import 'cache/cache_helper.dart';
+import 'home/view/screens/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheData.cacheInitialization();
   runApp(
     ChangeNotifierProvider(
-      create: (context) => LanguageProvider(),
+      create: (context) => SettingsViewModel(),
       child: const NewsApp(),
     ),
   );
@@ -24,11 +24,11 @@ class NewsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final languageProvider = Provider.of<LanguageProvider>(context);
+    final settingsViewModel = Provider.of<SettingsViewModel>(context);
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      locale: Locale(languageProvider.language),
+      locale: Locale(settingsViewModel.language),
       themeMode: ThemeMode.light,
       theme: AppTheme.lightTheme,
       debugShowCheckedModeBanner: false,
