@@ -126,7 +126,8 @@ class SearchTab extends SearchDelegate {
           if (searchViewModel.isLoading) {
             return const LoadingIndicator();
           } else if (searchViewModel.errorMessage != null &&
-              searchViewModel.errorMessage!.isNotEmpty) {
+              searchViewModel.errorMessage!.isNotEmpty &&
+              query.isNotEmpty) {
             return ErrorIndicator(searchViewModel.errorMessage!);
           } else if (searchViewModel.news.isEmpty) {
             return const Center(
