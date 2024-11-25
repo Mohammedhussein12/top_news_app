@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:news_app/shared/service_locator.dart';
 import 'package:news_app/sources/data/models/source_response.dart';
-
-import '../data/data_sources/sources_data_source.dart';
+import 'package:news_app/sources/repositories/sources_repository.dart';
 
 class SourcesViewModel with ChangeNotifier {
-  final dataSource = SourcesDataSource();
+  late final SourcesRepository sourcesRepository;
+
+  SourcesViewModel() {
+    sourcesRepository = SourcesRepository(ServiceLocator.sourcesApiDataSource);
+  }
+
   List<Source> sources = [];
   String? errorMessage;
   bool isLoading = false;
@@ -13,13 +18,8 @@ class SourcesViewModel with ChangeNotifier {
     isLoading = true;
     notifyListeners();
     try {
-      final response =
-          await dataSource.getSourcesByCategoryId(categoryId: categoryId);
-      if (response.status == 'ok' && response.sources != null) {
-        sources = response.sources!;
-      } else {
-        errorMessage = "Failed To Get Sources";
-      }
+      sources = await sourcesRepository.getSourcesByCategoryId(
+          categoryId: categoryId);
     } catch (error) {
       errorMessage = error.toString();
     }
