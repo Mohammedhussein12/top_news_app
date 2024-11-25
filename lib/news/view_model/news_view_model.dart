@@ -14,7 +14,7 @@ class NewsViewModel with ChangeNotifier {
   String? errorMessage;
 
   NewsViewModel(String sourceId) {
-    repository = NewsRepository(ServiceLocator.newsApiDataSource);
+    repository = NewsRepository(ServiceLocator.newsDataSource);
     pagingController.addPageRequestListener(
       (pageKey) async {
         try {
