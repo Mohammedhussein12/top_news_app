@@ -7,7 +7,7 @@ class SourcesViewModel with ChangeNotifier {
   late final SourcesRepository sourcesRepository;
 
   SourcesViewModel() {
-    sourcesRepository = SourcesRepository(ServiceLocator.sourcesApiDataSource);
+    sourcesRepository = SourcesRepository(ServiceLocator.sourcesDataSource);
   }
 
   List<Source> sources = [];
