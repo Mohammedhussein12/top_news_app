@@ -39,9 +39,9 @@ class SearchTab extends SearchDelegate {
 
   @override
   TextStyle? get searchFieldStyle => const TextStyle(
-    color: AppTheme.white,
-    fontSize: 22,
-  );
+        color: AppTheme.white,
+        fontSize: 22,
+      );
 
   @override
   List<Widget>? buildActions(BuildContext context) {
@@ -85,7 +85,16 @@ class SearchTab extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    return buildSearchData();
+    return Container(
+      width: double.infinity,
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          fit: BoxFit.fill,
+          image: AssetImage('assets/images/home.png'),
+        ),
+      ),
+      child: buildSearchData(),
+    );
   }
 
   @override
@@ -101,7 +110,7 @@ class SearchTab extends SearchDelegate {
         ),
         child: Center(
           child:
-          Text(AppLocalizations.of(context)!.please_enter_text_to_search),
+              Text(AppLocalizations.of(context)!.please_enter_text_to_search),
         ),
       );
     }
