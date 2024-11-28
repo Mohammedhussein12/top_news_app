@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:provider/provider.dart';
+import 'package:news_app/search/view_model/search_states.dart';
 
 import '../../../news/view/widgets/news_item.dart';
 import '../../../news_details/view/screens/news_item_details_screen.dart';
@@ -49,7 +50,6 @@ class SearchTab extends SearchDelegate {
       IconButton(
         onPressed: () {
           query = '';
-          searchViewModel.clearSearchResults();
         },
         icon: const Icon(
           Icons.clear,
@@ -93,7 +93,7 @@ class SearchTab extends SearchDelegate {
           image: AssetImage('assets/images/home.png'),
         ),
       ),
-      child: buildSearchData(),
+      child: buildSearchData(context),
     );
   }
 
@@ -123,41 +123,42 @@ class SearchTab extends SearchDelegate {
           image: AssetImage('assets/images/home.png'),
         ),
       ),
-      child: buildSearchData(),
+      child: buildSearchData(context),
     );
   }
 
-  Widget buildSearchData() {
-    return ChangeNotifierProvider.value(
-      value: searchViewModel..searchByQuery(query: query),
-      child: Consumer<SearchViewModel>(
-        builder: (context, searchViewModel, child) {
-          if (searchViewModel.isLoading) {
+  Widget buildSearchData(BuildContext context) {
+    return BlocProvider.value(
+      value: searchViewModel
+        ..searchByQuery(
+          query: query,
+          noNewsMessage: AppLocalizations.of(context)!.no_news_found,
+          errorMessage: AppLocalizations.of(context)!.failed_to_get_news,
+        ),
+      child: BlocBuilder<SearchViewModel, SearchStates>(
+        builder: (context, state) {
+          if (state is SearchLoading) {
             return const LoadingIndicator();
-          } else if (searchViewModel.errorMessage != null &&
-              searchViewModel.errorMessage!.isNotEmpty &&
-              query.isNotEmpty) {
-            return ErrorIndicator(searchViewModel.errorMessage!);
-          } else if (searchViewModel.news.isEmpty) {
-            return const Center(
-              child: Text('No news found'),
-            );
-          } else {
+          } else if (state is SearchError) {
+            return ErrorIndicator(state.errorMessage);
+          } else if (state is SearchSuccess) {
             return ListView.builder(
-              itemCount: searchViewModel.news.length,
+              itemCount: state.newsResults.length,
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
                   Navigator.pushNamed(
                     context,
                     NewsItemDetails.routeName,
-                    arguments: searchViewModel.news[index],
+                    arguments: state.newsResults[index],
                   );
                 },
                 child: NewsItem(
-                  news: searchViewModel.news[index],
+                  news: state.newsResults[index],
                 ),
               ),
             );
+          } else {
+            return const SizedBox();
           }
         },
       ),

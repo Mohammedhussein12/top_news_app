@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/news/view/widgets/news_item.dart';
-import 'package:news_app/search/data/models/news_response.dart';
-import 'package:provider/provider.dart';
+import 'package:news_app/news_details/view_model/news_details_states.dart';
+import 'package:news_app/shared/app_theme.dart';
 
-import '../../../shared/app_theme.dart';
+import '../../../search/data/models/news_response.dart';
 import '../../view_model/news_details_view_model.dart';
 
 class NewsItemDetails extends StatelessWidget {
@@ -17,6 +18,7 @@ class NewsItemDetails extends StatelessWidget {
     final news = ModalRoute.of(context)!.settings.arguments as News;
     final screenHeight = MediaQuery.sizeOf(context).height;
     final titleSmallTextTheme = Theme.of(context).textTheme.titleSmall;
+
     return Container(
       width: double.infinity,
       decoration: const BoxDecoration(
@@ -32,13 +34,11 @@ class NewsItemDetails extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: screenHeight * 0.02,
-              ),
+              SizedBox(height: screenHeight * 0.02),
               NewsItem(news: news),
               Padding(
-                padding: const EdgeInsetsDirectional.symmetric(
-                    vertical: 8.0, horizontal: 24),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
                 child: Text(
                   news.content ?? '',
                   style: titleSmallTextTheme?.copyWith(fontSize: 12),
@@ -49,18 +49,22 @@ class NewsItemDetails extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsetsDirectional.symmetric(
                       vertical: 8.0, horizontal: 15),
-                  child: ChangeNotifierProvider(
-                    create: (context) => NewsDetailsViewModel(),
-                    child: Consumer<NewsDetailsViewModel>(
-                      builder: (_, newsDetailsViewModel, __) {
+                  child: BlocProvider(
+                    create: (_) => NewsDetailsViewModel(),
+                    child: BlocConsumer<NewsDetailsViewModel, NewsDetailsState>(
+                      listener: (context, state) {},
+                      builder: (context, state) {
                         return TextButton(
-                          style: const ButtonStyle(
+                          style: ButtonStyle(
                             overlayColor:
-                                WidgetStatePropertyAll(Colors.transparent),
+                                WidgetStateProperty.all(Colors.transparent),
                           ),
                           onPressed: () {
-                            newsDetailsViewModel.launchArticleUrl(
-                                articleUrl: news.url ?? '');
+                            context
+                                .read<NewsDetailsViewModel>()
+                                .launchArticleUrl(
+                                  articleUrl: news.url ?? '',
+                                );
                           },
                           child: Text(
                             AppLocalizations.of(context)!.view_full_article,
@@ -75,7 +79,7 @@ class NewsItemDetails extends StatelessWidget {
                     ),
                   ),
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -83,4 +87,3 @@ class NewsItemDetails extends StatelessWidget {
     );
   }
 }
-

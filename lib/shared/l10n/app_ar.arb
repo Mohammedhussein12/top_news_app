@@ -15,5 +15,8 @@
   "english": "الانجليزيه",
   "arabic": "العربيه",
   "view_full_article": "عرض المقال كاملا >>",
-  "please_enter_text_to_search": "الرجاء ادخال النص للبحث"
+  "please_enter_text_to_search": "الرجاء ادخال النص للبحث",
+  "no_news_found": "لم يتم العثور على اخبار",
+  "no_more_news": "لا يوجد المزيد من الاخبار",
+  "failed_to_get_news": "فشل في الحصول على الاخبار"
 }
