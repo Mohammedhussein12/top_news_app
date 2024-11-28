@@ -1,35 +1,29 @@
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:news_app/search/data/data_sources/search_data_source.dart';
+import 'package:news_app/search/view_model/search_states.dart';
 
-import '../../search/data/models/news_response.dart';
-
-class SearchViewModel with ChangeNotifier {
+class SearchViewModel extends Cubit<SearchStates> {
+  SearchViewModel() : super(SearchInitial());
   final dataSource = SearchDataSource();
-  List<News> news = [];
-  bool isLoading = false;
-  String? errorMessage = '';
 
-  void searchByQuery({required String query}) async {
-    isLoading = true;
-    notifyListeners();
+  void searchByQuery({
+    required String query,
+    required String noNewsMessage,
+    required String errorMessage,
+  }) async {
+    emit(SearchLoading());
     try {
       final searchResponse = await dataSource.getNewsBySourceId(query: query);
       if (searchResponse.status == 'ok' && searchResponse.news != null) {
-        news = searchResponse.news!;
+        final newsResults = searchResponse.news!;
+        emit(SearchSuccess(newsResults: newsResults));
+      } else if (searchResponse.news == null) {
+        emit(SearchError(errorMessage: noNewsMessage));
       } else {
-        errorMessage = 'Failed To Get news';
+        emit(SearchError(errorMessage: errorMessage));
       }
     } catch (error) {
-      errorMessage = error.toString();
+      emit(SearchError(errorMessage: error.toString()));
     }
-    isLoading = false;
-    notifyListeners();
-  }
-
-  void clearSearchResults() async {
-    news = [];
-    errorMessage = '';
-    isLoading = false;
-    notifyListeners();
   }
 }
