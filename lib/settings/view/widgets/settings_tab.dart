@@ -49,7 +49,7 @@ class SettingsTab extends StatelessWidget {
                     iconEnabledColor: AppTheme.primaryColor,
                     iconDisabledColor: AppTheme.primaryColor,
                     value: languages.firstWhere(
-                      (language) {
+                          (language) {
                         return settingViewModel.language == language.code;
                       },
                     ),

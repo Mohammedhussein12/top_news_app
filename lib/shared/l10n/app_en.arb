@@ -15,5 +15,8 @@
   "english": "English",
   "arabic": "Arabic",
   "view_full_article": "View Full Article >>",
-  "please_enter_text_to_search": "Please enter text To Search"
+  "please_enter_text_to_search": "Please enter text To Search",
+  "no_news_found": "No news found",
+  "no_more_news": "no_more_news",
+  "failed_to_get_news": "Failed to get news"
 }
