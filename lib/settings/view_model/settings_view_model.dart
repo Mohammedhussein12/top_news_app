@@ -8,7 +8,6 @@ class SettingsViewModel extends Cubit<SettingsStates> {
 
   SettingsViewModel() : super(SettingsInitial()) {
     getLanguage();
-    emit(LanguageChanged(language: language));
   }
 
   void changeLanguage(String newLanguage) {
