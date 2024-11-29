@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:news_app/settings/data/models/language.dart';
-import 'package:provider/provider.dart';
+import 'package:news_app/settings/view_model/settings_states.dart';
 
 import '../../../shared/app_theme.dart';
 import '../../view_model/settings_view_model.dart';
@@ -43,13 +44,14 @@ class SettingsTab extends StatelessWidget {
                 border: Border.all(color: AppTheme.primaryColor),
               ),
               width: double.infinity,
-              child: Consumer<SettingsViewModel>(
-                builder: (context, settingViewModel, child) {
+              child: BlocBuilder<SettingsViewModel, SettingsStates>(
+                builder: (context, state) {
+                  final settingViewModel = context.read<SettingsViewModel>();
                   return DropdownButton<Language>(
                     iconEnabledColor: AppTheme.primaryColor,
                     iconDisabledColor: AppTheme.primaryColor,
                     value: languages.firstWhere(
-                          (language) {
+                      (language) {
                         return settingViewModel.language == language.code;
                       },
                     ),

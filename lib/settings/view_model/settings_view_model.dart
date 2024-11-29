@@ -1,18 +1,20 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:news_app/settings/view_model/settings_states.dart';
 
 import '../../shared/cache/cache_helper.dart';
 
-class SettingsViewModel with ChangeNotifier {
+class SettingsViewModel extends Cubit<SettingsStates> {
   String language = 'en';
 
-  SettingsViewModel() {
+  SettingsViewModel() : super(SettingsInitial()) {
     getLanguage();
+    emit(LanguageChanged(language: language));
   }
 
   void changeLanguage(String newLanguage) {
     language = newLanguage;
     setLanguage(language);
-    notifyListeners();
+    emit(LanguageChanged(language: language));
   }
 
   void setLanguage(String newLanguage) {
@@ -28,6 +30,5 @@ class SettingsViewModel with ChangeNotifier {
     if (selectedLanguage != null) {
       language = selectedLanguage;
     }
-    notifyListeners();
   }
 }
