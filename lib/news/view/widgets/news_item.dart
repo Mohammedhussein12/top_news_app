@@ -28,15 +28,19 @@ class NewsItem extends StatelessWidget {
         children: [
           ClipRRect(
               borderRadius: BorderRadius.circular(5),
-              child: CachedNetworkImage(
-                imageUrl: news.urlToImage ??
-                    'https://www.iisertvm.ac.in/assets/images/placeholder.jpg',
-                placeholder: (_, __) => const LoadingIndicator(),
-                errorWidget: (_, __, ___) =>
-                    const Icon(Icons.image_not_supported_outlined),
-                height: screenHeight * 0.25,
-                width: double.infinity,
-                fit: BoxFit.fill,
+              child: Hero(
+                tag:
+                    '${news.url ?? ''}-${news.publishedAt?.toIso8601String() ?? ''}',
+                child: CachedNetworkImage(
+                  imageUrl: news.urlToImage ??
+                      'https://www.iisertvm.ac.in/assets/images/placeholder.jpg',
+                  placeholder: (_, __) => const LoadingIndicator(),
+                  errorWidget: (_, __, ___) =>
+                      const Icon(Icons.image_not_supported_outlined),
+                  height: screenHeight * 0.25,
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                ),
               )),
           const SizedBox(height: 4),
           Align(
