@@ -8,9 +8,9 @@ class NewsDetailsViewModel extends Cubit<NewsDetailsState> {
   Future<void> launchArticleUrl({required String articleUrl}) async {
     emit(LaunchArticleUrlLoadingState());
     final Uri url = Uri.parse(articleUrl);
-    emit(LaunchArticleUrlSuccessState());
     if (!await launchUrl(url)) {
       emit(LaunchArticleUrlErrorState(errorMessage: 'Could not launch $url'));
     }
+    emit(LaunchArticleUrlSuccessState());
   }
 }
