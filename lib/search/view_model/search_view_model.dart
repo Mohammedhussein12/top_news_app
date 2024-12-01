@@ -11,6 +11,10 @@ class SearchViewModel extends Cubit<SearchStates> {
     required String noNewsMessage,
     required String errorMessage,
   }) async {
+    if (query.isEmpty) {
+      emit(SearchInitial());
+      return;
+    }
     emit(SearchLoading());
     try {
       final searchResponse = await dataSource.getNewsBySourceId(query: query);
@@ -19,8 +23,6 @@ class SearchViewModel extends Cubit<SearchStates> {
         emit(SearchSuccess(newsResults: newsResults));
       } else if (searchResponse.news == null) {
         emit(SearchError(errorMessage: noNewsMessage));
-      } else {
-        emit(SearchError(errorMessage: errorMessage));
       }
     } catch (error) {
       emit(SearchError(errorMessage: error.toString()));
