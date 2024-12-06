@@ -22,7 +22,6 @@ class NewsViewModel extends Cubit<NewsStates> {
   }
 
   void _fetchPage(int pageKey, String sourceId) async {
-    emit(GetNewsLoadingState());
     try {
       final news = await repository.getNewsBySourceId(
         pageSize: pageSize,
@@ -36,10 +35,8 @@ class NewsViewModel extends Cubit<NewsStates> {
         final nextPageKey = pageKey + 1;
         pagingController.appendPage(news, nextPageKey);
       }
-      emit(GetNewsSuccessState(news: news));
     } catch (error) {
       pagingController.error = error;
-      emit(GetNewsErrorState(errorMessage: error.toString()));
     }
   }
 

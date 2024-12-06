@@ -42,7 +42,7 @@ class NewsList extends StatelessWidget {
               noMoreItemsIndicatorBuilder: (context) => Center(
                 child: Text(AppLocalizations.of(context)!.no_more_news),
               ),
-              transitionDuration: const Duration(seconds: 2),
+              transitionDuration: const Duration(seconds: 1),
               animateTransitions: true,
             ),
           );
