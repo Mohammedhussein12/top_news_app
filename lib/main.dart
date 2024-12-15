@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:news_app/news_details/view/screens/news_item_details_screen.dart';
 import 'package:news_app/settings/view_model/settings_view_model.dart';
 import 'package:news_app/shared/app_theme.dart';
 import 'package:news_app/shared/cache/cache_helper.dart';
+import 'package:news_app/sources/data/models/source_response.dart';
+import 'package:path_provider/path_provider.dart';
 
 import 'home/view/screens/home_screen.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await CacheData.cacheInitialization();
+  try {
+    WidgetsFlutterBinding.ensureInitialized();
+    final appDocumentDirectory = await getApplicationDocumentsDirectory();
+    Hive.init(appDocumentDirectory.path);
+    Hive.registerAdapter(SourceResponseAdapter());
+    Hive.registerAdapter(SourceAdapter());
+    await CacheData.cacheInitialization();
+  } catch (e) {
+    print('Error during Hive initialization: $e');
+  }
   runApp(
     BlocProvider(
       create: (context) => SettingsViewModel(),

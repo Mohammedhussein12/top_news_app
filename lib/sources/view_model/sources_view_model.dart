@@ -7,7 +7,9 @@ class SourcesViewModel extends Cubit<SourcesState> {
   late final SourcesRepository sourcesRepository;
 
   SourcesViewModel() : super(SourcesInitialState()) {
-    sourcesRepository = SourcesRepository(ServiceLocator.sourcesDataSource);
+    sourcesRepository = SourcesRepository(
+        ServiceLocator.sourcesRemoteDataSource,
+        ServiceLocator.sourcesLocalDataSource);
   }
 
   Future<void> getSourcesByCategoryId({required String categoryId}) async {
@@ -15,7 +17,7 @@ class SourcesViewModel extends Cubit<SourcesState> {
     try {
       final sources = await sourcesRepository.getSourcesByCategoryId(
           categoryId: categoryId);
-      emit(GetSourcesSuccessState(sources: sources));
+      emit(GetSourcesSuccessState(sources: sources.sources!));
     } catch (error) {
       emit(GetSourcesErrorState(errorMessage: error.toString()));
     }
