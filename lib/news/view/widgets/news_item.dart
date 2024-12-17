@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:timeago/timeago.dart';
 
-import '../../../search/data/models/news_response.dart';
+import '../../../shared/models/news_response.dart';
 import '../../../shared/widgets/loading_indicator.dart';
 
 class NewsItem extends StatelessWidget {

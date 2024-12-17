@@ -5,7 +5,7 @@ import 'package:news_app/news/view/widgets/news_item.dart';
 import 'package:news_app/news_details/view_model/news_details_states.dart';
 import 'package:news_app/shared/app_theme.dart';
 
-import '../../../search/data/models/news_response.dart';
+import '../../../shared/models/news_response.dart';
 import '../../view_model/news_details_view_model.dart';
 
 class NewsItemDetails extends StatelessWidget {

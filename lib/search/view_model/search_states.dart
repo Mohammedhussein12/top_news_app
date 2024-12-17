@@ -1,4 +1,4 @@
-import 'package:news_app/search/data/models/news_response.dart';
+import '../../shared/models/news_response.dart';
 
 abstract class SearchStates {}
 
