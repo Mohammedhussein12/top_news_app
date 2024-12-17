@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import '../../../shared/api_constants.dart';
-import '../models/news_response.dart';
+import '../../../shared/models/news_response.dart';
 
 class SearchDataSource {
   Future<NewsResponse> getNewsBySourceId({

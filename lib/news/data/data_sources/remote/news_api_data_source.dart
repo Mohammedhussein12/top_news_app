@@ -1,14 +1,14 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:news_app/news/data/data_sources/news_data_sources.dart';
+import 'package:news_app/news/data/data_sources/remote/news_remote_data_source.dart';
 
-import '../../../search/data/models/news_response.dart';
-import '../../../shared/api_constants.dart';
+import '../../../../shared/api_constants.dart';
+import '../../../../shared/models/news_response.dart';
 
-class NewsApiDataSource extends NewsDataSource {
+class NewsApiDataSource extends NewsRemoteDataSource {
   @override
-  Future<List<News>> getNewsBySourceId({
+  Future<NewsResponse> getNewsBySourceId({
     String? query,
     required String sourceId,
     required int pageSize,
@@ -26,7 +26,7 @@ class NewsApiDataSource extends NewsDataSource {
     final json = jsonDecode(responseBody);
     final newsResponse = NewsResponse.fromJson(json);
     if (newsResponse.status == 'ok' || newsResponse.news != null) {
-      return newsResponse.news!;
+      return newsResponse;
     } else {
       throw Exception('Failed to get news');
     }
