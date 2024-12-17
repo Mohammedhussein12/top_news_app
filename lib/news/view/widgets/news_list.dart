@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../../news_details/view/screens/news_item_details_screen.dart';
-import '../../../search/data/models/news_response.dart';
+import '../../../shared/models/news_response.dart';
 import '../../../shared/widgets/loading_indicator.dart';
 import '../../view_model/news_states.dart';
 import '../../view_model/news_view_model.dart';
