@@ -169,7 +169,7 @@ Watch the demo video to see the application in action:
 
 ## 📷 Screenshots
 
-| Home                                 | Article View                               | Categories                                       |
+| Home                                 | Article Details View                               | articles                                       |
 |--------------------------------------|--------------------------------------------|--------------------------------------------------|
 | ![Home](assets/screenshots/home.png) | ![Article](assets/screenshots/Article.png) | ![Categories](assets/screenshots/categories.png) |
 
